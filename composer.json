@@ -22,6 +22,6 @@
     "phpunit/phpunit": "^8.5"
   },
   "scripts": {
-    "test": "./vendor/bin/phpunit --colors=always src"
+    "test": "./vendor/bin/phpunit --do-not-cache-result --colors=always src"
   }
 }
