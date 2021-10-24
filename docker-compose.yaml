@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  cars-php:
+    container_name: cars-php
+    tty: true
+    stdin_open: true
+    build:
+      context: ./.docker
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/cli
+
+

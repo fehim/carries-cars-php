@@ -1,0 +1,14 @@
+.DS_Store
+/.phpunit.result.cache
+
+# PhpStorm:
+/.idea/*
+!/.idea/codeStyleSettings.xml
+!/.idea/scopes
+!/.idea/fileColors.xml
+
+# Composer:
+/vendor/
+
+# PHP-CS-Fixer cache
+.php_cs.cache
