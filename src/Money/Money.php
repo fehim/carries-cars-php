@@ -27,4 +27,9 @@ class Money implements MoneyInterface
     {
         return new self((int)round($this->amountInCents * $by), $this->currency);
     }
+
+    public function add(Money $money): Money
+    {
+        return new self($this->amountInCents + $money->amountInCents, $this->currency);
+    }
 }
