@@ -22,10 +22,53 @@ class PricingEngineTest extends TestCase
         Reservation $reservation,
         Money $totalPrice
     ): void {
-        //var_dump($reservation);
         $actual = (new PricingEngine($pickupSurchargePerMinute, $mileageSurchargePerKm, $pricePerMinute, $reservation))->calculatePrice();
 
         self::assertTrue($actual->equalTo($totalPrice));
+    }
+
+    /**
+     * @dataProvider dpPackageRatesAreChargedWithinLimits
+     */
+    public function testPackageRatesAreChargedWithinLimits(Reservation $reservation, array $calculatedPrices): void
+    {
+        $packages = [
+            [3, 75, 19],
+            [6, 125, 39],
+            [24, 200, 59],
+            [168, 700, 209]
+        ];
+
+        foreach ($packages as $key => $package) {
+            $totalPrice = PricingEngine::calculatePriceWithPackage($package, $reservation);
+
+            self::assertTrue($totalPrice->equalTo($calculatedPrices[$key]));
+        }
+    }
+
+    public function dpPackageRatesAreChargedWithinLimits(): array
+    {
+        return [
+            // reservation, prices array
+            [
+                new Reservation(Duration::fromMinutes(15), Duration::fromMinutes(180), 75),
+                [
+                    Currencies::EUR(1900),
+                    Currencies::EUR(3900),
+                    Currencies::EUR(5900),
+                    Currencies::EUR(20900),
+                ],
+            ],
+            [
+                new Reservation(Duration::fromMinutes(15), Duration::fromMinutes(240), 100),
+                [
+                    Currencies::EUR(2500),
+                    Currencies::EUR(3900),
+                    Currencies::EUR(5900),
+                    Currencies::EUR(20900),
+                ]
+            ],
+        ];
     }
 
     public function dpCalculatePriceChargedPerMinute(): array

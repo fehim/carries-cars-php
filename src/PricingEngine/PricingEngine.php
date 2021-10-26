@@ -56,4 +56,9 @@ class PricingEngine
 
         return $totalPrice;
     }
+
+    public static function calculatePriceWithPackage(): Money
+    {
+
+    }
 }
