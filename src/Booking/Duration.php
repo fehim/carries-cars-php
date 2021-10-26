@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\PricingEngine;
+namespace App\Booking;
 
 class Duration
 {
-    /** @var int */
-    public $durationInMinutes;
+    public int $durationInMinutes;
 
     public function __construct(int $durationInMinutes)
     {
